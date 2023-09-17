@@ -1,0 +1,24 @@
+{
+  "name": "subscriptions",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "bun build src/client.tsx --outdir ./dist",
+    "dev:client": "bun run build --watch",
+    "dev:server": "bun --watch run src/server.tsx",
+    "serve": "bun run src/server.tsx",
+    "deploy": "bun run build && bun run serve"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
