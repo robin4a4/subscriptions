@@ -7,7 +7,15 @@ const server = Bun.serve({
     const url = new URL(req.url);
     // return index.html for root path
     if (url.pathname === "/") {
-      const stream = await renderToReadableStream(<App />);
+      const data = await fetch("https://jsonplaceholder.typicode.com/todos");
+      const todos = await data.json();
+
+      const stream = await renderToReadableStream(<App data={todos} />, {
+        bootstrapScripts: ["/dist/client.js"],
+        bootstrapScriptContent: `window.__INITIAL_DATA__=${JSON.stringify(
+          todos
+        )}`,
+      });
 
       return new Response(stream, {
         headers: {
