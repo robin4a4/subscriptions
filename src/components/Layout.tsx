@@ -12,7 +12,13 @@ export function Layout({
 				<title>Subscriptions</title>
 				{manifest.map((filename) => {
 					if (filename.endsWith(".css")) {
-						return <link rel="stylesheet" href={`/dist/${filename}`} />;
+						return (
+							<link
+								key={filename}
+								rel="stylesheet"
+								href={`/dist/${filename}`}
+							/>
+						);
 					}
 				})}
 			</head>

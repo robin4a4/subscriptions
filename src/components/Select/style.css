@@ -1,0 +1,42 @@
+.SelectTrigger {
+    background-color: var(--color-slate-50);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    border: solid 1px var(--color-slate-300);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    transition-duration: 200ms;
+}
+
+.SelectTrigger:hover {
+    background-color: var(--color-slate-100);
+}
+
+
+.SelectIcon svg, .SelectItemIndicator svg {
+    width: 18px;
+    height: 18px;
+}
+
+.SelectContent {
+    margin-top: 52px;
+    background-color: var(--color-slate-50);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    border: solid 1px var(--color-slate-300);
+}
+
+.SelectViewport {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.SelectItem {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}

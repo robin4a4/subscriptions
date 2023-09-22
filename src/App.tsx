@@ -12,7 +12,10 @@ export function App({
 	return (
 		<AppProvider data={data}>
 			<Layout manifest={manifest}>
-				<Form />
+				<div className="container">
+					<h1>Subscriptions</h1>
+					<Form />
+				</div>
 			</Layout>
 		</AppProvider>
 	);

@@ -316,4 +316,18 @@
 body {
     background-color: var(--color-slate-100);
     color: var(--color-slate-900);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+  width: 100%;
+  margin: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
 }
