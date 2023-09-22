@@ -3,21 +3,22 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun build src/client.tsx --outdir ./dist",
+    "build": "bun run src/config/build-client.ts",
     "dev": "concurrently 'bun run build --watch' 'bun --watch run src/server.tsx'",
     "serve": "bun run src/server.tsx",
     "deploy": "bun run build && bun run serve"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "concurrently": "^8.2.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@radix-ui/react-select": "^1.2.2",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "concurrently": "^8.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }

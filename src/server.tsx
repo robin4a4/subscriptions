@@ -1,5 +1,8 @@
 import { renderToReadableStream } from "react-dom/server";
-import { App } from "./components/App";
+import { App } from "./App";
+
+const manifestString = await Bun.file("dist/manifest.json").text();
+const manifest = JSON.parse(manifestString);
 
 const server = Bun.serve({
   port: process.env.PORT || 8080,
@@ -10,12 +13,16 @@ const server = Bun.serve({
       const data = await fetch("https://jsonplaceholder.typicode.com/todos");
       const todos = await data.json();
 
-      const stream = await renderToReadableStream(<App data={todos} />, {
-        bootstrapScripts: ["/dist/client.js"],
-        bootstrapScriptContent: `window.__INITIAL_DATA__=${JSON.stringify(
-          todos
-        )}`,
-      });
+      const stream = await renderToReadableStream(
+        <App data={todos} manifest={manifest} />,
+        {
+          bootstrapScripts: ["/dist/client.js"],
+          bootstrapScriptContent: `
+          window.__INITIAL_DATA__=${JSON.stringify(todos)};
+          window.__MANIFEST__=${manifestString};
+          `,
+        }
+      );
 
       return new Response(stream, {
         headers: {

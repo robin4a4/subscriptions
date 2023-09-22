@@ -1,5 +1,10 @@
 import { hydrateRoot } from "react-dom/client";
-import { App } from "./components/App.tsx";
+import { App } from "./App.tsx";
+import "./global.css";
 
-// @ts-ignore
-hydrateRoot(document, <App data={window.__INITIAL_DATA__} />);
+hydrateRoot(
+  // @ts-ignore
+  document,
+  // @ts-ignore
+  <App data={window.__INITIAL_DATA__} manifest={window.__MANIFEST__} />
+);
