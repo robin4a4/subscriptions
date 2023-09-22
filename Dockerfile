@@ -8,7 +8,7 @@ COPY tsconfig.json .
 COPY biome.json .
 COPY src src
 
-RUN bun install --production
+RUN bun install
 
 
 ENV NODE_ENV production
