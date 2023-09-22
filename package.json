@@ -7,7 +7,7 @@
     "dev": "concurrently 'bun run build --watch' 'bun --watch run src/server.tsx'",
     "serve": "bun run src/server.tsx",
     "lint": "bunx biome format ./src --write && bunx biome check ./src",
-    "prepare": "bun run lint && bun run build",
+    "prepare": "bunx biome check ./src && bun run build",
     "deploy": "bun run prepare && bun run serve"
   },
   "devDependencies": {
