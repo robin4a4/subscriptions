@@ -6,7 +6,9 @@
     "build": "bun run src/config/build-client.ts",
     "dev": "concurrently 'bun run build --watch' 'bun --watch run src/server.tsx'",
     "serve": "bun run src/server.tsx",
-    "deploy": "bun run build && bun run serve"
+    "lint": "bunx biome format ./src --write && bunx biome check ./src",
+    "prepare": "bun run lint && bun run build",
+    "deploy": "bun run prepare && bun run serve"
   },
   "devDependencies": {
     "@biomejs/biome": "1.2.2",
