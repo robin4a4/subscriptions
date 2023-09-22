@@ -3,17 +3,17 @@ import { Layout } from "./components/Layout";
 import { AppProvider } from "./context";
 
 export function App({
-  data,
-  manifest,
+	data,
+	manifest,
 }: {
-  data: { id: string | null }[];
-  manifest: string[];
+	data: { id: string | null }[];
+	manifest: string[];
 }) {
-  return (
-    <AppProvider data={data}>
-      <Layout manifest={manifest}>
-        <Form />
-      </Layout>
-    </AppProvider>
-  );
+	return (
+		<AppProvider data={data}>
+			<Layout manifest={manifest}>
+				<Form />
+			</Layout>
+		</AppProvider>
+	);
 }

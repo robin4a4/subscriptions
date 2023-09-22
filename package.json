@@ -9,6 +9,7 @@
     "deploy": "bun run build && bun run serve"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.2.2",
     "bun-types": "latest",
     "concurrently": "^8.2.1"
   },

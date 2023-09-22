@@ -1,17 +1,17 @@
 import { PropsWithChildren, createContext } from "react";
 
 type AppContextType = {
-  data: {
-    id: string | null;
-  }[];
+	data: {
+		id: string | null;
+	}[];
 };
 export const AppContext = createContext<AppContextType>({
-  data: [],
+	data: [],
 });
 
 export function AppProvider({
-  data,
-  children,
+	data,
+	children,
 }: PropsWithChildren<AppContextType>) {
-  return <AppContext.Provider value={{ data }}>{children}</AppContext.Provider>;
+	return <AppContext.Provider value={{ data }}>{children}</AppContext.Provider>;
 }
