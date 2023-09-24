@@ -9,6 +9,7 @@
     justify-content: space-between;
     gap: 8px;
     transition-duration: 200ms;
+    min-width: 200px;
 }
 
 .SelectTrigger:hover {

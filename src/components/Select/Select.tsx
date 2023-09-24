@@ -5,7 +5,7 @@ export function Select() {
 	return (
 		<SelectRadix.Root>
 			<SelectRadix.Trigger className="SelectTrigger" aria-label="Food">
-				<SelectRadix.Value placeholder="SelectRadix a fruit…" />
+				<SelectRadix.Value placeholder="SelectRadix a frusdfsdfsdef it…" />
 				<SelectRadix.Icon className="SelectIcon">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +13,6 @@ export function Select() {
 						viewBox="0 0 24 24"
 						strokeWidth={1.5}
 						stroke="currentColor"
-						className="w-6 h-6"
 					>
 						<title>chevron down icon</title>
 						<path
@@ -55,7 +54,6 @@ const SelectItem = ({
 					viewBox="0 0 24 24"
 					strokeWidth={1.5}
 					stroke="currentColor"
-					className="w-6 h-6"
 				>
 					<title>check icon</title>
 					<path

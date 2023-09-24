@@ -3,8 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun run src/config/build-client.ts",
-    "dev": "concurrently 'bun run build --watch' 'bun --watch run src/server.tsx'",
+    "dev": "bun run --watch config/build-client-dev.ts",
+    "build": "bun run config/build-client-prod.ts",
     "serve": "bun run src/server.tsx",
     "lint": "bunx biome format ./src --write && bunx biome check ./src",
     "prepare": "bunx biome check ./src && bun run build",
@@ -12,8 +12,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.2.2",
-    "bun-types": "latest",
-    "concurrently": "^8.2.1"
+    "bun-types": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
