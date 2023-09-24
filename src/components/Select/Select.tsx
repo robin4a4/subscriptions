@@ -1,11 +1,17 @@
 import * as SelectRadix from "@radix-ui/react-select";
 import { PropsWithChildren } from "react";
 import "./style.css";
-export function Select() {
+export type SelectOptions = {
+	value: string,
+	label: string,
+	icon?: React.ReactNode
+}[]
+
+export function Select({placeholder, options, disabled}: {placeholder: string, options: SelectOptions, disabled?: boolean}) {
 	return (
 		<SelectRadix.Root>
-			<SelectRadix.Trigger className="SelectTrigger" aria-label="Food">
-				<SelectRadix.Value placeholder="SelectRadix a frusdfsdfsdef it…" />
+			<SelectRadix.Trigger className="SelectTrigger" aria-label="Food" disabled={disabled}>
+				<SelectRadix.Value placeholder={placeholder} />
 				<SelectRadix.Icon className="SelectIcon">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -26,11 +32,9 @@ export function Select() {
 			<SelectRadix.Portal>
 				<SelectRadix.Content className="SelectContent">
 					<SelectRadix.Viewport className="SelectViewport">
-						<SelectItem value="apple">Apple</SelectItem>
-						<SelectItem value="banana">Banana</SelectItem>
-						<SelectItem value="blueberry">Blueberry</SelectItem>
-						<SelectItem value="grapes">Grapes</SelectItem>
-						<SelectItem value="pineapple">Pineapple</SelectItem>
+						{options.map((option) => (
+							<SelectItem key={option.value} value="apple">{option.label}</SelectItem>
+						))}
 					</SelectRadix.Viewport>
 				</SelectRadix.Content>
 			</SelectRadix.Portal>
