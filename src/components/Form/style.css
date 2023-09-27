@@ -12,3 +12,26 @@
     margin-bottom: 16px;
     border: none;
 }
+
+.add-fieldset {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    height: 64px;
+    width: 100%;
+    border-radius: 8px;
+    border: solid 1px var(--color-slate-300);
+    background-color: transparent;
+    transition-duration: 100ms;
+    cursor: pointer;
+}
+
+.add-fieldset:hover {
+    background-color: var(--color-slate-50);
+}
+
+.add-fieldset svg {
+    width: 32px;
+    height: 32px;
+}

@@ -7,14 +7,12 @@ import { Input } from "../Input";
 
 function Fieldset() {
 	const [services, setServices] = useState(SUBSCRIPTION_SERVICES);
-	console.log(services);
 	return (
 		<fieldset className="form-fieldset">
 			<Select
 				placeholder="Category"
 				options={Object.values(SUBSCRIPTIONS_CATEGORIES)}
 				onValueChange={(value) => {
-					console.log(value);
 					setServices(
 						SUBSCRIPTION_SERVICES.filter(
 							(service) => service.category === value,
@@ -32,9 +30,23 @@ export function Form() {
 	return (
 		<form className="form">
 			<Fieldset />
-			<Fieldset />
-			<Fieldset />
-			<Fieldset />
+			<button className="add-fieldset" type="button">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					strokeWidth={1.5}
+					stroke="currentColor"
+					className="w-6 h-6"
+				>
+					<title>plus icon</title>
+					<path
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						d="M12 4.5v15m7.5-7.5h-15"
+					/>
+				</svg>
+			</button>
 		</form>
 	);
 }

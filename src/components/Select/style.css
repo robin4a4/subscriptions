@@ -10,6 +10,8 @@
     gap: 8px;
     transition-duration: 100ms;
     min-width: 200px;
+    min-height: 40px;
+    max-height: 40px;
 }
 
 .SelectTrigger:hover {
@@ -53,5 +55,5 @@
 }
 
 .SelectItem:hover, .SelectItem:focus-visible {
-    background-color: var(--color-slate-200);
+    background-color: var(--color-slate-100);
 }
