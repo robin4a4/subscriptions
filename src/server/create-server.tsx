@@ -1,6 +1,12 @@
 import { renderToReadableStream } from "react-dom/server";
 import { App } from "../App";
-
+import { FieldsetType } from "../consts";
+// import { Database } from "bun:sqlite";
+// const db = new Database("mydb.sqlite", { create: true });
+// const query = db.query(
+// 	"CREATE TABLE IF NOT EXISTS fieldsets (id INTEGER PRIMARY KEY, category TEXT, service TEXT, price DECIMAL, type TEXT);",
+// );
+// query.run();
 export function createServer({
 	manifest,
 }: {
@@ -12,14 +18,28 @@ export function createServer({
 			const url = new URL(req.url);
 			// return index.html for root path
 			if (url.pathname === "/") {
-				const data = await fetch("https://jsonplaceholder.typicode.com/todos");
-				const todos = await data.json();
+				const fieldsets: FieldsetType[] = [
+					{
+						id: 1,
+						category: "streaming",
+						service: "netflix",
+						price: 10.99,
+						type: "monthly",
+					},
+					{
+						id: 2,
+						category: "streaming",
+						service: "hulu",
+						price: 5.99,
+						type: "monthly",
+					},
+				];
 				const stream = await renderToReadableStream(
-					<App data={todos} manifest={manifest} />,
+					<App data={fieldsets} manifest={manifest} />,
 					{
 						bootstrapScripts: ["/dist/client.js"],
 						bootstrapScriptContent: `
-      window.__INITIAL_DATA__=${JSON.stringify(todos)};
+      window.__INITIAL_DATA__=${JSON.stringify(fieldsets)};
       window.__MANIFEST__=${JSON.stringify(manifest)};
       `,
 					},

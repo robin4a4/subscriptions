@@ -2,21 +2,27 @@ import * as SelectRadix from "@radix-ui/react-select";
 import { PropsWithChildren } from "react";
 import "./style.css";
 
-export function Select<TOptions extends Record<string, string>[],>({
+export function Select<TOptions extends readonly Record<string, string>[]>({
 	placeholder,
 	options,
 	disabled,
+	value,
 	onValueChange,
 }: {
 	placeholder: string;
 	options: TOptions;
 	disabled?: boolean;
+	value?: TOptions extends readonly Record<string, infer TOption>[]
+		? TOption
+		: never;
 	onValueChange?: (
-		value: TOptions extends Record<infer TOption, string>[] ? TOption : never,
+		value: TOptions extends readonly Record<string, infer TOption>[]
+			? TOption
+			: never,
 	) => void;
 }) {
 	return (
-		<SelectRadix.Root onValueChange={onValueChange}>
+		<SelectRadix.Root value={value} onValueChange={onValueChange}>
 			<SelectRadix.Trigger
 				className="SelectTrigger"
 				aria-label="Food"

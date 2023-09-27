@@ -2,16 +2,28 @@ import { Select } from "../Select";
 import "./style.css";
 
 import { useState } from "react";
-import { SUBSCRIPTIONS_CATEGORIES, SUBSCRIPTION_SERVICES } from "../../consts";
+import {
+	FieldsetType,
+	SUBSCRIPTIONS_CATEGORIES,
+	SUBSCRIPTION_SERVICES,
+} from "../../consts";
 import { Input } from "../Input";
+import { useAppContext } from "../../context";
 
-function Fieldset() {
-	const [services, setServices] = useState(SUBSCRIPTION_SERVICES);
+function Fieldset({ item }: { item?: FieldsetType }) {
+	const [services, setServices] = useState(
+		item
+			? SUBSCRIPTION_SERVICES.filter(
+					(service) => service.category === item?.category,
+			  )
+			: SUBSCRIPTION_SERVICES,
+	);
 	return (
 		<fieldset className="form-fieldset">
 			<Select
 				placeholder="Category"
 				options={Object.values(SUBSCRIPTIONS_CATEGORIES)}
+				value={item?.category}
 				onValueChange={(value) => {
 					setServices(
 						SUBSCRIPTION_SERVICES.filter(
@@ -20,16 +32,36 @@ function Fieldset() {
 					);
 				}}
 			/>
-			<Select placeholder="Service" options={services} />
-			<Input placeholder="Price" />
+			<Select placeholder="Service" value={item?.service} options={services} />
+			<Input placeholder="Price" defaultValue={item?.price} />
+			<button className="save-fieldset" type="button">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					strokeWidth={1.5}
+					stroke="currentColor"
+					className="w-6 h-6"
+				>
+					<title>save icon</title>
+					<path
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						d="M4.5 12.75l6 6 9-13.5"
+					/>
+				</svg>
+			</button>
 		</fieldset>
 	);
 }
 
 export function Form() {
+	const { data } = useAppContext();
 	return (
 		<form className="form">
-			<Fieldset />
+			{data.map((item) => (
+				<Fieldset key={item.service} item={item} />
+			))}
 			<button className="add-fieldset" type="button">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

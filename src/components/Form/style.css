@@ -46,3 +46,23 @@
     display: flex;
     justify-content: end;
 }
+
+.save-fieldset {
+    border: none;
+    min-height: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    border-radius: 8px;
+    background-color: var(--color-green-500);
+    color: white;
+    transition-duration: 100ms;
+}
+
+.save-fieldset:hover {
+    background-color: var(--color-green-600);
+}
+
+.save-fieldset {
+    width: 32px;
+    height: 32px;
+}
