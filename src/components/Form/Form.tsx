@@ -34,35 +34,72 @@ function Fieldset({ item }: { item?: FieldsetType }) {
 			/>
 			<Select placeholder="Service" value={item?.service} options={services} />
 			<Input placeholder="Price" defaultValue={item?.price} />
-			<button className="save-fieldset" type="button">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					strokeWidth={1.5}
-					stroke="currentColor"
-					className="w-6 h-6"
-				>
-					<title>save icon</title>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						d="M4.5 12.75l6 6 9-13.5"
-					/>
-				</svg>
-			</button>
+			<div className="buttons-fieldset">
+				<button className="button-fieldset add" type="button">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						strokeWidth={1.5}
+						stroke="currentColor"
+						className="w-6 h-6"
+					>
+						<title>save icon</title>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							d="M4.5 12.75l6 6 9-13.5"
+						/>
+					</svg>
+				</button>
+				<button className="button-fieldset remove" type="button">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						strokeWidth={1.5}
+						stroke="currentColor"
+						className="w-6 h-6"
+					>
+						<title>remove icon</title>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							d="M19.5 12h-15"
+						/>
+					</svg>
+				</button>
+			</div>
 		</fieldset>
 	);
 }
 
 export function Form() {
 	const { data } = useAppContext();
+	const [fieldsets, setFieldsets] = useState<FieldsetType[]>(data);
+
+	const handleAddFieldset = () => {
+		setFieldsets((prev) => [
+			...prev,
+			{
+				id: undefined,
+				category: undefined,
+				service: undefined,
+				price: 0,
+				type: "monthly",
+			},
+		]);
+	};
 	return (
 		<form className="form">
-			{data.map((item) => (
+			{fieldsets.map((item) => (
 				<Fieldset key={item.service} item={item} />
 			))}
-			<button className="add-fieldset" type="button">
+			<button
+				className="add-fieldset"
+				type="button"
+				onClick={handleAddFieldset}
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"

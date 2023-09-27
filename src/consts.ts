@@ -346,9 +346,9 @@ export type SubscriptionsCategories =
 	typeof SUBSCRIPTIONS_CATEGORIES[keyof typeof SUBSCRIPTIONS_CATEGORIES];
 export type SubscriptionService = typeof SUBSCRIPTION_SERVICES[number];
 export type FieldsetType = {
-	id: number;
-	category: SubscriptionsCategories["slug"];
-	service: SubscriptionService["slug"];
+	id: number | undefined;
+	category: SubscriptionsCategories["slug"] | undefined;
+	service: SubscriptionService["slug"] | undefined;
 	price: number;
 	type: "monthly" | "yearly";
 };

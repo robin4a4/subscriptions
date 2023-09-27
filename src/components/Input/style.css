@@ -6,7 +6,8 @@
     padding-left: 8px;
     padding-right: 8px;
     transition-duration: 100ms;
-    min-width: 200px;
+    min-width: 150px;
+    width: 100%;
     min-height: 40px;
     max-height: 40px;
 }
