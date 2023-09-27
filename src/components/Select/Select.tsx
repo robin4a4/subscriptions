@@ -1,19 +1,22 @@
 import * as SelectRadix from "@radix-ui/react-select";
 import { PropsWithChildren } from "react";
 import "./style.css";
-export type SelectOptions = {
-	name: string;
-	slug: string;
-	icon?: React.ReactNode;
-}[];
 
-export function Select({
+export function Select<TOptions extends Record<string, string>[],>({
 	placeholder,
 	options,
 	disabled,
-}: { placeholder: string; options: SelectOptions; disabled?: boolean }) {
+	onValueChange,
+}: {
+	placeholder: string;
+	options: TOptions;
+	disabled?: boolean;
+	onValueChange?: (
+		value: TOptions extends Record<infer TOption, string>[] ? TOption : never,
+	) => void;
+}) {
 	return (
-		<SelectRadix.Root>
+		<SelectRadix.Root onValueChange={onValueChange}>
 			<SelectRadix.Trigger
 				className="SelectTrigger"
 				aria-label="Food"
@@ -41,7 +44,7 @@ export function Select({
 				<SelectRadix.Content className="SelectContent">
 					<SelectRadix.Viewport className="SelectViewport">
 						{options.map((option) => (
-							<SelectItem key={option.slug} value="apple">
+							<SelectItem key={option.slug} value={option.slug}>
 								{option.name}
 							</SelectItem>
 						))}
