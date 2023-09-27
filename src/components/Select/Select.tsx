@@ -2,8 +2,8 @@ import * as SelectRadix from "@radix-ui/react-select";
 import { PropsWithChildren } from "react";
 import "./style.css";
 export type SelectOptions = {
-	value: string;
-	label: string;
+	name: string;
+	slug: string;
 	icon?: React.ReactNode;
 }[];
 
@@ -41,8 +41,8 @@ export function Select({
 				<SelectRadix.Content className="SelectContent">
 					<SelectRadix.Viewport className="SelectViewport">
 						{options.map((option) => (
-							<SelectItem key={option.value} value="apple">
-								{option.label}
+							<SelectItem key={option.slug} value="apple">
+								{option.name}
 							</SelectItem>
 						))}
 					</SelectRadix.Viewport>
