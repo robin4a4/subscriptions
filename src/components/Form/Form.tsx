@@ -11,6 +11,7 @@ import { useAppContext } from "../../context";
 import { Input } from "../Input";
 
 function Fieldset({ item }: { item?: FieldsetType }) {
+	const [visible, setVisible] = useState(true);
 	const [services, setServices] = useState(
 		item
 			? SUBSCRIPTION_SERVICES.filter(
@@ -18,6 +19,7 @@ function Fieldset({ item }: { item?: FieldsetType }) {
 			  )
 			: SUBSCRIPTION_SERVICES,
 	);
+	if (!visible) return null;
 	return (
 		<fieldset className="form-fieldset">
 			<Select
@@ -52,7 +54,13 @@ function Fieldset({ item }: { item?: FieldsetType }) {
 						/>
 					</svg>
 				</button>
-				<button className="button-fieldset remove" type="button">
+				<button
+					className="button-fieldset remove"
+					type="button"
+					onClick={() => {
+						setVisible(false);
+					}}
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -92,8 +100,8 @@ export function Form() {
 	};
 	return (
 		<form className="form">
-			{fieldsets.map((item) => (
-				<Fieldset key={item.service} item={item} />
+			{fieldsets.map((item, i) => (
+				<Fieldset key={`${item.service}-${i}`} item={item} />
 			))}
 			<button
 				className="add-fieldset"
