@@ -47,6 +47,9 @@ export function Form() {
 					/>
 				</svg>
 			</button>
+			<div className="results">
+				<b>00.00</b>&nbsp; €
+			</div>
 		</form>
 	);
 }

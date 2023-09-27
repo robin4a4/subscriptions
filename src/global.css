@@ -316,7 +316,7 @@
 body {
     background-color: var(--color-slate-100);
     color: var(--color-slate-900);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Arial, Geneva, Tahoma, sans-serif;
     padding: 0;
     margin: 0;
 }
