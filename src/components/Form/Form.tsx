@@ -7,8 +7,8 @@ import {
 	SUBSCRIPTIONS_CATEGORIES,
 	SUBSCRIPTION_SERVICES,
 } from "../../consts";
-import { Input } from "../Input";
 import { useAppContext } from "../../context";
+import { Input } from "../Input";
 
 function Fieldset({ item }: { item?: FieldsetType }) {
 	const [services, setServices] = useState(
