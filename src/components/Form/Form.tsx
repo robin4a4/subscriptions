@@ -61,7 +61,12 @@ function FormFieldset({ item }: { item?: FieldsetType }) {
 				}}
 				options={fieldsetState.services}
 			/>
-			<Input placeholder="Price" name="price" defaultValue={item?.price} />
+			<Input
+				placeholder="Price"
+				name="price"
+				defaultValue={item?.price}
+				unit="€"
+			/>
 			<div className="buttons-fieldset">
 				<button className="button-fieldset add" type="submit">
 					<svg

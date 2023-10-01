@@ -1,23 +1,43 @@
 .Input {
+    width: 100%;
+
+    position: relative;
+}
+
+
+.Input input {
+    transition-duration: 100ms;
+    width: 100%;
+    background-color: var(--color-slate-50);
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     border: solid 1px var(--color-slate-300);
     border-radius: 8px;
+    min-width: 150px;
+    min-height: 40px;
+    max-height: 40px;
     padding: 0;
     padding-left: 8px;
     padding-right: 8px;
-    transition-duration: 100ms;
-    min-width: 150px;
     width: 100%;
-    min-height: 40px;
-    max-height: 40px;
-    background-color: var(--color-slate-50);
+    height: 100%;
 }
 
-.Input:hover {
+.Input input:hover {
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
-.Input:focus-visible {
+.Input input:focus-visible {
     outline: 2px solid var(--color-blue-500);
     outline-offset: 2px;
+}
+
+.InputUnit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding-right: 8px;
+    display: grid;
+    place-content: center;
+    color: var(--color-slate-500);
 }
