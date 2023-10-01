@@ -63,7 +63,12 @@
     border-top: solid 1px var(--color-slate-300);
     border-bottom: solid 1px var(--color-slate-300);
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.results .SelectTrigger {
+    width: auto
 }
 
 .buttons-fieldset {

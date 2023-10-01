@@ -39,5 +39,5 @@
     padding-right: 8px;
     display: grid;
     place-content: center;
-    color: var(--color-slate-500);
+    color: var(--color-slate-400);
 }

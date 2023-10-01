@@ -1,7 +1,7 @@
 import * as SelectRadix from "@radix-ui/react-select";
 import { PropsWithChildren, ReactNode } from "react";
-import "./style.css";
 import { CheckIcon, ChevronDownIcon } from "../../icons";
+import "./style.css";
 
 export function Select<TOptions extends readonly Record<string, string>[]>({
 	name,
