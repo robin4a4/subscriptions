@@ -18,22 +18,11 @@ export function createServer({
 			const url = new URL(req.url);
 			// return index.html for root path
 			if (url.pathname === "/") {
-				const fieldsets: FieldsetType[] = [
-					{
-						id: 1,
-						category: "streaming",
-						service: "netflix",
-						price: 10.99,
-						type: "monthly",
-					},
-					{
-						id: 2,
-						category: "streaming",
-						service: "hulu",
-						price: 5.99,
-						type: "monthly",
-					},
-				];
+				const query = db.query(
+					"SELECT * FROM fieldsets ORDER BY id DESC LIMIT 10",
+				);
+				const fieldsets = query.all() as FieldsetType[];
+
 				const stream = await renderToReadableStream(
 					<App data={fieldsets} manifest={manifest} />,
 					{
@@ -68,24 +57,27 @@ export function createServer({
 				const category = formdata.get("category")?.toString() ?? "";
 				const service = formdata.get("service")?.toString() ?? "";
 				const price = formdata.get("price")?.toString() ?? "";
+				const type = formdata.get("type")?.toString() ?? "monthly";
 				if (id) {
 					const query = db.query(
-						"UPDATE fieldsets SET category = $category, service = $service, price = $price WHERE id = $id",
+						"UPDATE fieldsets SET category = $category, service = $service, price = $price, type = $type WHERE id = $id",
 					);
 					query.all({
+						$id: id,
 						$category: category,
 						$service: service,
 						$price: price,
-						$id: id,
+						$type: type,
 					});
 				} else {
 					const query = db.query(
-						"INSERT INTO fieldsets (category, service, price) VALUES ($category, $service, $price)",
+						"INSERT INTO fieldsets (category, service, price, type) VALUES ($category, $service, $price, $type)",
 					);
 					query.all({
 						$category: category,
 						$service: service,
 						$price: price,
+						$type: type,
 					});
 				}
 				return new Response("Success");
