@@ -3,12 +3,14 @@ import { PropsWithChildren } from "react";
 import "./style.css";
 
 export function Select<TOptions extends readonly Record<string, string>[]>({
+	name,
 	placeholder,
 	options,
 	disabled,
 	value,
 	onValueChange,
 }: {
+	name: string;
 	placeholder: string;
 	options: TOptions;
 	disabled?: boolean;
@@ -22,7 +24,7 @@ export function Select<TOptions extends readonly Record<string, string>[]>({
 	) => void;
 }) {
 	return (
-		<SelectRadix.Root value={value} onValueChange={onValueChange}>
+		<SelectRadix.Root value={value} onValueChange={onValueChange} name={name}>
 			<SelectRadix.Trigger
 				className="SelectTrigger"
 				aria-label="Food"

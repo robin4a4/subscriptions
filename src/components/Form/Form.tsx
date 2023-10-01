@@ -10,7 +10,7 @@ import {
 import { useAppContext } from "../../context";
 import { Input } from "../Input";
 
-function Fieldset({ item }: { item?: FieldsetType }) {
+function FormFieldset({ item }: { item?: FieldsetType }) {
 	const [fieldsetState, setFieldsetState] = useState({
 		visible: true,
 		category: item?.category,
@@ -23,9 +23,22 @@ function Fieldset({ item }: { item?: FieldsetType }) {
 	});
 
 	if (!fieldsetState.visible) return null;
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const form = event.currentTarget;
+		// @ts-ignore
+		const formData = new FormData(form);
+		fetch("/action", {
+			method: "POST",
+			body: formData,
+		});
+	};
 	return (
-		<fieldset className="form-fieldset">
+		<form className="form-fieldset" onSubmit={handleSubmit}>
+			<input type="hidden" name="id" defaultValue={item?.id} />
 			<Select
+				name="category"
 				placeholder="Category"
 				options={Object.values(SUBSCRIPTIONS_CATEGORIES)}
 				value={fieldsetState.category}
@@ -40,6 +53,7 @@ function Fieldset({ item }: { item?: FieldsetType }) {
 				}}
 			/>
 			<Select
+				name="service"
 				placeholder="Service"
 				value={fieldsetState.service}
 				onValueChange={(value) => {
@@ -47,9 +61,9 @@ function Fieldset({ item }: { item?: FieldsetType }) {
 				}}
 				options={fieldsetState.services}
 			/>
-			<Input placeholder="Price" defaultValue={item?.price} />
+			<Input placeholder="Price" name="price" defaultValue={item?.price} />
 			<div className="buttons-fieldset">
-				<button className="button-fieldset add" type="button">
+				<button className="button-fieldset add" type="submit">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -90,14 +104,14 @@ function Fieldset({ item }: { item?: FieldsetType }) {
 					</svg>
 				</button>
 			</div>
-		</fieldset>
+		</form>
 	);
 }
 
-export function Form() {
+export function FormContainer() {
 	const { data } = useAppContext();
 	const [fieldsets, setFieldsets] = useState<FieldsetType[]>(data);
-
+	const total = fieldsets.reduce((acc, item) => acc + item.price, 0);
 	const handleAddFieldset = () => {
 		setFieldsets([
 			...fieldsets,
@@ -110,10 +124,11 @@ export function Form() {
 			},
 		]);
 	};
+
 	return (
-		<form className="form">
+		<div className="form-container">
 			{fieldsets.map((item, i) => (
-				<Fieldset key={`${item.service}-${i}`} item={item} />
+				<FormFieldset key={`${item.service}-${i}`} item={item} />
 			))}
 			<button
 				className="add-fieldset"
@@ -137,8 +152,8 @@ export function Form() {
 				</svg>
 			</button>
 			<div className="results">
-				<b>00.00</b>&nbsp; €
+				<b>{total.toLocaleString("fr-FR")}</b>&nbsp; €
 			</div>
-		</form>
+		</div>
 	);
 }

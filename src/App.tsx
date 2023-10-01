@@ -1,4 +1,4 @@
-import { Form } from "./components/Form";
+import { FormContainer } from "./components/Form";
 import { Layout } from "./components/Layout";
 import { FieldsetType } from "./consts";
 import { AppProvider } from "./context";
@@ -15,7 +15,7 @@ export function App({
 			<Layout manifest={manifest}>
 				<div className="container">
 					<h1>🤑 Subscriptions</h1>
-					<Form />
+					<FormContainer />
 				</div>
 			</Layout>
 		</AppProvider>
