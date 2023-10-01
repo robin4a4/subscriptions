@@ -1,6 +1,7 @@
 import * as SelectRadix from "@radix-ui/react-select";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 import "./style.css";
+import { CheckIcon, ChevronDownIcon } from "../../icons";
 
 export function Select<TOptions extends readonly Record<string, string>[]>({
 	name,
@@ -9,6 +10,7 @@ export function Select<TOptions extends readonly Record<string, string>[]>({
 	disabled,
 	value,
 	onValueChange,
+	icon,
 }: {
 	name: string;
 	placeholder: string;
@@ -22,6 +24,7 @@ export function Select<TOptions extends readonly Record<string, string>[]>({
 			? TSlug
 			: string,
 	) => void;
+	icon?: ReactNode;
 }) {
 	return (
 		<SelectRadix.Root value={value} onValueChange={onValueChange} name={name}>
@@ -30,22 +33,13 @@ export function Select<TOptions extends readonly Record<string, string>[]>({
 				aria-label="Food"
 				disabled={disabled}
 			>
+				{icon ? (
+					<SelectRadix.Icon className="SelectIcon">{icon}</SelectRadix.Icon>
+				) : null}
+
 				<SelectRadix.Value placeholder={placeholder} />
 				<SelectRadix.Icon className="SelectIcon">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth={1.5}
-						stroke="currentColor"
-					>
-						<title>chevron down icon</title>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-						/>
-					</svg>
+					<ChevronDownIcon />
 				</SelectRadix.Icon>
 			</SelectRadix.Trigger>
 			<SelectRadix.Portal>
@@ -73,20 +67,7 @@ const SelectItem = ({
 		<SelectRadix.Item className="SelectItem" {...props}>
 			<SelectRadix.ItemText>{children}</SelectRadix.ItemText>
 			<SelectRadix.ItemIndicator className="SelectItemIndicator">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					strokeWidth={1.5}
-					stroke="currentColor"
-				>
-					<title>check icon</title>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						d="M4.5 12.75l6 6 9-13.5"
-					/>
-				</svg>
+				<CheckIcon />
 			</SelectRadix.ItemIndicator>
 		</SelectRadix.Item>
 	);

@@ -27,6 +27,10 @@ button.SelectTrigger {
     color: var(--color-slate-500);
 }
 
+.SelectIcon:first-child {
+    color: var(--color-slate-400);
+}
+
 .SelectIcon svg, .SelectItemIndicator svg {
     width: 18px;
     height: 18px;

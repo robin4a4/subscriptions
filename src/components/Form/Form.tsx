@@ -6,9 +6,18 @@ import {
 	FieldsetType,
 	SUBSCRIPTIONS_CATEGORIES,
 	SUBSCRIPTION_SERVICES,
+	SUBSCRIPTION_TYPES,
 } from "../../consts";
 import { useAppContext } from "../../context";
 import { Input } from "../Input";
+import {
+	CategoryIcon,
+	CheckIcon,
+	MinusIcon,
+	PlusIcon,
+	ServiceIcon,
+	TypeIcon,
+} from "../../icons";
 
 function FormFieldset({ item }: { item?: FieldsetType }) {
 	const [fieldsetState, setFieldsetState] = useState({
@@ -20,6 +29,7 @@ function FormFieldset({ item }: { item?: FieldsetType }) {
 					(service) => service.category === item?.category,
 			  )
 			: SUBSCRIPTION_SERVICES,
+		type: item?.type,
 	});
 
 	if (!fieldsetState.visible) return null;
@@ -51,6 +61,7 @@ function FormFieldset({ item }: { item?: FieldsetType }) {
 						),
 					});
 				}}
+				icon={<CategoryIcon />}
 			/>
 			<Select
 				name="service"
@@ -60,6 +71,17 @@ function FormFieldset({ item }: { item?: FieldsetType }) {
 					setFieldsetState({ ...fieldsetState, service: value });
 				}}
 				options={fieldsetState.services}
+				icon={<ServiceIcon />}
+			/>
+			<Select
+				name="type"
+				placeholder="Type"
+				value={fieldsetState.type}
+				onValueChange={(value) => {
+					setFieldsetState({ ...fieldsetState, type: value });
+				}}
+				options={SUBSCRIPTION_TYPES}
+				icon={<TypeIcon />}
 			/>
 			<Input
 				placeholder="Price"
@@ -69,21 +91,7 @@ function FormFieldset({ item }: { item?: FieldsetType }) {
 			/>
 			<div className="buttons-fieldset">
 				<button className="button-fieldset add" type="submit">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth={1.5}
-						stroke="currentColor"
-						className="w-6 h-6"
-					>
-						<title>save icon</title>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M4.5 12.75l6 6 9-13.5"
-						/>
-					</svg>
+					<CheckIcon />
 				</button>
 				<button
 					className="button-fieldset remove"
@@ -92,21 +100,7 @@ function FormFieldset({ item }: { item?: FieldsetType }) {
 						setFieldsetState({ ...fieldsetState, visible: false });
 					}}
 				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth={1.5}
-						stroke="currentColor"
-						className="w-6 h-6"
-					>
-						<title>remove icon</title>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M19.5 12h-15"
-						/>
-					</svg>
+					<MinusIcon />
 				</button>
 			</div>
 		</form>
@@ -140,21 +134,7 @@ export function FormContainer() {
 				type="button"
 				onClick={handleAddFieldset}
 			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					strokeWidth={1.5}
-					stroke="currentColor"
-					className="w-6 h-6"
-				>
-					<title>plus icon</title>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						d="M12 4.5v15m7.5-7.5h-15"
-					/>
-				</svg>
+				<PlusIcon />
 			</button>
 			<div className="results">
 				<b>{total.toLocaleString("fr-FR")}</b>&nbsp; €

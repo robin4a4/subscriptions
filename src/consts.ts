@@ -41,8 +41,8 @@ export const SUBSCRIPTION_SERVICES = [
 		category: SUBSCRIPTIONS_CATEGORIES.streaming.slug,
 	},
 	{
-		name: "Amazon Prime Video",
-		slug: "amazon-prime-video",
+		name: "Prime Video",
+		slug: "prime-video",
 		url: "https://www.primevideo.com/",
 		category: SUBSCRIPTIONS_CATEGORIES.streaming.slug,
 	},
@@ -342,13 +342,25 @@ export const SUBSCRIPTION_SERVICES = [
 	},
 ] as const;
 
+export const SUBSCRIPTION_TYPES = [
+	{
+		name: "Monthly",
+		slug: "monthly",
+	},
+	{
+		name: "Yearly",
+		slug: "yearly",
+	},
+] as const;
+
 export type SubscriptionsCategories =
 	typeof SUBSCRIPTIONS_CATEGORIES[keyof typeof SUBSCRIPTIONS_CATEGORIES];
 export type SubscriptionService = typeof SUBSCRIPTION_SERVICES[number];
+export type SubscriptionTypes = typeof SUBSCRIPTION_TYPES[number];
 export type FieldsetType = {
 	id: number | undefined;
 	category: SubscriptionsCategories["slug"] | undefined;
 	service: SubscriptionService["slug"] | undefined;
 	price: number;
-	type: "monthly" | "yearly";
+	type: SubscriptionTypes["slug"];
 };
