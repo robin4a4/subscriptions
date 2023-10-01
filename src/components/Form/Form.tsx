@@ -21,16 +21,15 @@ import {
 import { Input } from "../Input";
 
 function FormFieldset({
-	item,
 	index,
 	fieldsets,
 	setFieldsets,
 }: {
-	item?: FieldsetType;
 	index: number;
 	fieldsets: FieldsetType[];
 	setFieldsets: (fieldsets: FieldsetType[]) => void;
 }) {
+	const item = fieldsets[index];
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const form = event.currentTarget;
@@ -60,7 +59,7 @@ function FormFieldset({
 				name="category"
 				placeholder="Category"
 				options={Object.values(SUBSCRIPTIONS_CATEGORIES)}
-				value={fieldsets[index].category}
+				value={item.category}
 				onValueChange={(value) =>
 					handleFieldsetsChange({
 						category: value,
@@ -71,21 +70,21 @@ function FormFieldset({
 			<Select
 				name="service"
 				placeholder="Service"
-				value={fieldsets[index].service}
+				value={item.service}
 				onValueChange={(value) =>
 					handleFieldsetsChange({
 						service: value,
 					})
 				}
 				options={SUBSCRIPTION_SERVICES.filter(
-					(service) => service.category === fieldsets[index].category,
+					(service) => service.category === item.category,
 				)}
 				icon={<ServiceIcon />}
 			/>
 			<Select
 				name="type"
 				placeholder="Type"
-				value={fieldsets[index].type}
+				value={item.type}
 				onValueChange={(value) => {
 					handleFieldsetsChange({ type: value });
 				}}
@@ -98,11 +97,12 @@ function FormFieldset({
 				defaultValue={item?.price}
 				onChange={(event) => {
 					handleFieldsetsChange({
-						// @ts-ignore
-						price: (event.target as HTMLInputElement).value,
+						price:
+							// @ts-ignore
+							(event.target as HTMLInputElement).value,
 					});
 				}}
-				unit="€"
+				unit={`€ / ${item.type === "monthly" ? "mois" : "an"}`}
 			/>
 			<div className="buttons-fieldset">
 				<button className="button-fieldset add" type="submit">
@@ -130,8 +130,11 @@ export function FormContainer() {
 	const [resultType, setResultType] =
 		useState<SubscriptionTypes["slug"]>("monthly");
 	const total =
-		fieldsets.reduce((acc, item) => Number(acc) + Number(item.price), 0) *
-		(resultType === "monthly" ? 1 : 12);
+		fieldsets.reduce(
+			(acc, item) =>
+				Number(acc) + Number(item.price) / (item.type === "monthly" ? 1 : 12),
+			0,
+		) / (resultType === "monthly" ? 1 : 12);
 	const handleAddFieldset = () => {
 		setFieldsets([
 			...fieldsets,
@@ -151,7 +154,6 @@ export function FormContainer() {
 				<FormFieldset
 					key={`${item.service}-${i}`}
 					index={i}
-					item={item}
 					fieldsets={fieldsets}
 					setFieldsets={setFieldsets}
 				/>
@@ -175,8 +177,13 @@ export function FormContainer() {
 					icon={<TypeIcon />}
 				/>
 				<span>
-					<b>{total.toLocaleString("fr-FR")}</b>&nbsp; € /{" "}
-					{resultType === "monthly" ? "mois" : "an"}
+					<b>
+						{total.toLocaleString("fr-FR", {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2,
+						})}
+					</b>
+					&nbsp; € / {resultType === "monthly" ? "mois" : "an"}
 				</span>
 			</div>
 		</div>
