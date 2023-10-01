@@ -10,6 +10,7 @@
     width: 100%;
     min-height: 40px;
     max-height: 40px;
+    background-color: var(--color-slate-50);
 }
 
 .Input:hover {

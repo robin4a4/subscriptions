@@ -1,4 +1,4 @@
-.SelectTrigger {
+button.SelectTrigger {
     background-color: var(--color-slate-50);
     border-radius: 8px;
     padding: 8px;
@@ -21,6 +21,10 @@
 .SelectTrigger:focus-visible {
     outline: 2px solid var(--color-blue-500);
     outline-offset: 2px;
+}
+
+.SelectTrigger[data-placeholder] {
+    color: var(--color-slate-500);
 }
 
 .SelectIcon svg, .SelectItemIndicator svg {

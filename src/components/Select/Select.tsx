@@ -12,13 +12,13 @@ export function Select<TOptions extends readonly Record<string, string>[]>({
 	placeholder: string;
 	options: TOptions;
 	disabled?: boolean;
-	value?: TOptions extends readonly Record<string, infer TOption>[]
-		? TOption
-		: never;
+	value?: TOptions extends readonly { name: string; slug: infer TSlug }[]
+		? TSlug
+		: undefined;
 	onValueChange?: (
-		value: TOptions extends readonly Record<string, infer TOption>[]
-			? TOption
-			: never,
+		value: TOptions extends readonly { name: string; slug: infer TSlug }[]
+			? TSlug
+			: string,
 	) => void;
 }) {
 	return (

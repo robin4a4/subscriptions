@@ -11,30 +11,42 @@ import { useAppContext } from "../../context";
 import { Input } from "../Input";
 
 function Fieldset({ item }: { item?: FieldsetType }) {
-	const [visible, setVisible] = useState(true);
-	const [services, setServices] = useState(
-		item
+	const [fieldsetState, setFieldsetState] = useState({
+		visible: true,
+		category: item?.category,
+		service: item?.service,
+		services: item
 			? SUBSCRIPTION_SERVICES.filter(
 					(service) => service.category === item?.category,
 			  )
 			: SUBSCRIPTION_SERVICES,
-	);
-	if (!visible) return null;
+	});
+
+	if (!fieldsetState.visible) return null;
 	return (
 		<fieldset className="form-fieldset">
 			<Select
 				placeholder="Category"
 				options={Object.values(SUBSCRIPTIONS_CATEGORIES)}
-				value={item?.category}
+				value={fieldsetState.category}
 				onValueChange={(value) => {
-					setServices(
-						SUBSCRIPTION_SERVICES.filter(
+					setFieldsetState({
+						...fieldsetState,
+						category: value,
+						services: SUBSCRIPTION_SERVICES.filter(
 							(service) => service.category === value,
 						),
-					);
+					});
 				}}
 			/>
-			<Select placeholder="Service" value={item?.service} options={services} />
+			<Select
+				placeholder="Service"
+				value={fieldsetState.service}
+				onValueChange={(value) => {
+					setFieldsetState({ ...fieldsetState, service: value });
+				}}
+				options={fieldsetState.services}
+			/>
 			<Input placeholder="Price" defaultValue={item?.price} />
 			<div className="buttons-fieldset">
 				<button className="button-fieldset add" type="button">
@@ -58,7 +70,7 @@ function Fieldset({ item }: { item?: FieldsetType }) {
 					className="button-fieldset remove"
 					type="button"
 					onClick={() => {
-						setVisible(false);
+						setFieldsetState({ ...fieldsetState, visible: false });
 					}}
 				>
 					<svg
@@ -87,8 +99,8 @@ export function Form() {
 	const [fieldsets, setFieldsets] = useState<FieldsetType[]>(data);
 
 	const handleAddFieldset = () => {
-		setFieldsets((prev) => [
-			...prev,
+		setFieldsets([
+			...fieldsets,
 			{
 				id: undefined,
 				category: undefined,

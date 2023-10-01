@@ -2,6 +2,7 @@
     border: solid 1px var(--color-slate-300);
     border-radius: 8px;
     padding: 16px;
+    margin-top: 32px;
 }
 
 .form-fieldset {
@@ -74,15 +75,17 @@
     border-radius: 8px;
     color: white;
     transition-duration: 100ms;
+    display: grid;
+    place-content: center;
 }
 
 .button-fieldset:hover {
     background-color: var(--color-green-600);
 }
 
-.button-fieldset {
-    width: 32px;
-    height: 32px;
+.button-fieldset svg {
+    width: 24px;
+    height: 24px;
 }
 
 .button-fieldset.add {
