@@ -18,9 +18,7 @@ export function createServer({
 			const url = new URL(req.url);
 			// return index.html for root path
 			if (url.pathname === "/") {
-				const query = db.query(
-					"SELECT * FROM fieldsets ORDER BY id DESC LIMIT 10",
-				);
+				const query = db.query("SELECT * FROM fieldsets");
 				const fieldsets = query.all() as FieldsetType[];
 
 				const stream = await renderToReadableStream(
@@ -52,35 +50,46 @@ export function createServer({
 			}
 
 			if (url.pathname === "/action") {
-				const formdata = await req.formData();
-				const id = formdata.get("id")?.toString();
-				const category = formdata.get("category")?.toString() ?? "";
-				const service = formdata.get("service")?.toString() ?? "";
-				const price = formdata.get("price")?.toString() ?? "";
-				const type = formdata.get("type")?.toString() ?? "monthly";
-				if (id) {
-					const query = db.query(
-						"UPDATE fieldsets SET category = $category, service = $service, price = $price, type = $type WHERE id = $id",
-					);
-					query.all({
-						$id: id,
-						$category: category,
-						$service: service,
-						$price: price,
-						$type: type,
-					});
+				if (req.method === "DELETE") {
+					const { id } = await req.json();
+					if (id) {
+						const query = db.query("DELETE FROM fieldsets WHERE id = $id");
+						query.all({
+							$id: id,
+						});
+					}
+					return new Response("Success");
 				} else {
-					const query = db.query(
-						"INSERT INTO fieldsets (category, service, price, type) VALUES ($category, $service, $price, $type)",
-					);
-					query.all({
-						$category: category,
-						$service: service,
-						$price: price,
-						$type: type,
-					});
+					const formdata = await req.formData();
+					const id = formdata.get("id")?.toString();
+					const category = formdata.get("category")?.toString() ?? "";
+					const service = formdata.get("service")?.toString() ?? "";
+					const price = formdata.get("price")?.toString() ?? "";
+					const type = formdata.get("type")?.toString() ?? "monthly";
+					if (id) {
+						const query = db.query(
+							"UPDATE fieldsets SET category = $category, service = $service, price = $price, type = $type WHERE id = $id",
+						);
+						query.all({
+							$id: id,
+							$category: category,
+							$service: service,
+							$price: price,
+							$type: type,
+						});
+					} else {
+						const query = db.query(
+							"INSERT INTO fieldsets (category, service, price, type) VALUES ($category, $service, $price, $type)",
+						);
+						query.all({
+							$category: category,
+							$service: service,
+							$price: price,
+							$type: type,
+						});
+					}
+					return new Response("Success");
 				}
-				return new Response("Success");
 			}
 
 			return new Response("Not Found", { status: 404 });

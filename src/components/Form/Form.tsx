@@ -114,7 +114,14 @@ function FormFieldset({
 					onClick={() => {
 						const newFieldsets = [...fieldsets];
 						newFieldsets.splice(index, 1);
-						setFieldsets(newFieldsets);
+						fetch("/action", {
+							method: "DELETE",
+							body: JSON.stringify({
+								id: item.id,
+							}),
+						}).then(() => {
+							setFieldsets(newFieldsets);
+						});
 					}}
 				>
 					<MinusIcon />
@@ -134,7 +141,7 @@ export function FormContainer() {
 			(acc, item) =>
 				Number(acc) + Number(item.price) / (item.type === "monthly" ? 1 : 12),
 			0,
-		) / (resultType === "monthly" ? 1 : 12);
+		) * (resultType === "monthly" ? 1 : 12);
 	const handleAddFieldset = () => {
 		setFieldsets([
 			...fieldsets,
