@@ -102,7 +102,7 @@ function FormFieldset({
 							(event.target as HTMLInputElement).value,
 					});
 				}}
-				unit={`€ / ${item.type === "monthly" ? "mois" : "an"}`}
+				unit={`€ / ${item.type === "monthly" ? "month" : "year"}`}
 			/>
 			<div className="buttons-fieldset">
 				<button className="button-fieldset add" type="submit">
@@ -113,14 +113,15 @@ function FormFieldset({
 					type="button"
 					onClick={() => {
 						const newFieldsets = [...fieldsets];
+						setFieldsets(newFieldsets);
 						newFieldsets.splice(index, 1);
 						fetch("/action", {
 							method: "DELETE",
 							body: JSON.stringify({
 								id: item.id,
 							}),
-						}).then(() => {
-							setFieldsets(newFieldsets);
+						}).catch(() => {
+							setFieldsets(fieldsets);
 						});
 					}}
 				>
@@ -190,7 +191,7 @@ export function FormContainer() {
 							maximumFractionDigits: 2,
 						})}
 					</b>
-					&nbsp; € / {resultType === "monthly" ? "mois" : "an"}
+					&nbsp; € / {resultType === "monthly" ? "month" : "year"}
 				</span>
 			</div>
 		</div>

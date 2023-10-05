@@ -30,7 +30,7 @@ export function Select<TOptions extends readonly Record<string, string>[]>({
 		<SelectRadix.Root value={value} onValueChange={onValueChange} name={name}>
 			<SelectRadix.Trigger
 				className="SelectTrigger"
-				aria-label="Food"
+				aria-label="Select"
 				disabled={disabled}
 			>
 				{icon ? (
@@ -43,7 +43,7 @@ export function Select<TOptions extends readonly Record<string, string>[]>({
 				</SelectRadix.Icon>
 			</SelectRadix.Trigger>
 			<SelectRadix.Portal>
-				<SelectRadix.Content className="SelectContent">
+				<SelectRadix.Content className="SelectContent" position="popper">
 					<SelectRadix.Viewport className="SelectViewport">
 						{options.map((option) => (
 							<SelectItem key={option.slug} value={option.slug}>
