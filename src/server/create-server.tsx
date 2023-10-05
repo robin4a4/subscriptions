@@ -20,7 +20,7 @@ export function createServer({
 			if (url.pathname === "/") {
 				const query = db.query("SELECT * FROM fieldsets");
 				const fieldsets = query.all() as FieldsetType[];
-				console.log(fieldsets)
+				console.log(fieldsets);
 				const stream = await renderToReadableStream(
 					<App data={fieldsets} manifest={manifest} />,
 					{
