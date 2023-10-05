@@ -32,13 +32,13 @@ export function createServer({
 					const query = db.query("SELECT * FROM fieldsets");
 					fieldsets = query.all() as FieldsetType[];
 				}
-
+				const data = { isAdmin, fieldsets }
 				const stream = await renderToReadableStream(
-					<App data={{ fieldsets }} manifest={manifest} />,
+					<App data={data} manifest={manifest} />,
 					{
 						bootstrapScripts: ["/dist/client.js"],
 						bootstrapScriptContent: `
-						window.__INITIAL_DATA__=${JSON.stringify(fieldsets)};
+						window.__INITIAL_DATA__=${JSON.stringify(data)};
       					window.__MANIFEST__=${JSON.stringify(manifest)};`,
 					},
 				);
