@@ -16,6 +16,7 @@ import {
 	MinusIcon,
 	PlusIcon,
 	ServiceIcon,
+	SpinnerIcon,
 	TypeIcon,
 } from "../../icons";
 import { Input } from "../Input";
@@ -30,14 +31,18 @@ function FormFieldset({
 	setFieldsets: (fieldsets: FieldsetType[]) => void;
 }) {
 	const item = fieldsets[index];
+	const [submitting, setSubmitting] = useState(false);
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setSubmitting(true);
 		const form = event.currentTarget;
 		// @ts-ignore
 		const formData = new FormData(form);
 		fetch("/action", {
 			method: "POST",
 			body: formData,
+		}).finally(() => {
+			setSubmitting(false);
 		});
 	};
 
@@ -106,7 +111,7 @@ function FormFieldset({
 			/>
 			<div className="buttons-fieldset">
 				<button className="button-fieldset add" type="submit">
-					<CheckIcon />
+					{submitting ? <SpinnerIcon /> : <CheckIcon />}
 				</button>
 				<button
 					className="button-fieldset remove"
