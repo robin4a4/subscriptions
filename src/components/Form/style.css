@@ -58,14 +58,25 @@
 .results {
     padding-top: 16px;
     padding-bottom: 16px;
-    margin-bottom: 16px;
     margin-top: 16px;
     border-top: solid 1px var(--color-slate-300);
-    border-bottom: solid 1px var(--color-slate-300);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
+@media (max-width: 768px) {
+    .results {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: var(--color-slate-100);
+        padding: 16px;
+        padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    }
+}
+
 
 .results .SelectTrigger {
     width: auto
@@ -92,11 +103,6 @@
     place-content: center;
 }
 
-@media (min-width: 768px) {
-    .form-fieldset {
-        max-width: 40px;
-    }
-}
 
 .button-fieldset:hover {
     background-color: var(--color-green-600);
