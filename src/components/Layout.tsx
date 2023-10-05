@@ -23,7 +23,13 @@ export function Layout({
 					}
 				})}
 			</head>
-			<body>{children}</body>
+			<body>
+				{" "}
+				<div className="container">
+					<h1>🤑 Subscriptions</h1>
+					{children}
+				</div>
+			</body>
 		</html>
 	);
 }

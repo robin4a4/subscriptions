@@ -18,16 +18,28 @@ export function createServer({
 			const url = new URL(req.url);
 			// return index.html for root path
 			if (url.pathname === "/") {
-				const query = db.query("SELECT * FROM fieldsets");
-				const fieldsets = query.all() as FieldsetType[];
+				if (!process.env.PASSWORD)
+					return new Response("Not Found", { status: 404 });
+
+				const cookie =
+					req.headers.get("cookie")?.split("__connect__=")[1] ?? "";
+				const isAdmin = await Bun.password.verify(
+					process.env.PASSWORD.toString(),
+					cookie,
+				);
+				let fieldsets: FieldsetType[] = [];
+				if (isAdmin) {
+					const query = db.query("SELECT * FROM fieldsets");
+					fieldsets = query.all() as FieldsetType[];
+				}
+
 				const stream = await renderToReadableStream(
-					<App data={fieldsets} manifest={manifest} />,
+					<App data={{ fieldsets }} manifest={manifest} />,
 					{
 						bootstrapScripts: ["/dist/client.js"],
 						bootstrapScriptContent: `
-      window.__INITIAL_DATA__=${JSON.stringify(fieldsets)};
-      window.__MANIFEST__=${JSON.stringify(manifest)};
-      `,
+						window.__INITIAL_DATA__=${JSON.stringify(fieldsets)};
+      					window.__MANIFEST__=${JSON.stringify(manifest)};`,
 					},
 				);
 				return new Response(stream, {
@@ -37,13 +49,21 @@ export function createServer({
 				});
 			}
 
-			// return dist files
-			if (url.pathname.startsWith("/dist")) {
-				const file = Bun.file(url.pathname.replace(/^\/+/, ""));
-				if (!file) return new Response("Not Found", { status: 404 });
-				return new Response(file, {
+			if (url.pathname === "/connect") {
+				const formdata = await req.formData();
+				const username = formdata.get("username")?.toString() ?? "";
+				const password = formdata.get("password")?.toString() ?? "";
+
+				if (
+					username !== process.env.USERNAME ||
+					password !== process.env.PASSWORD
+				) {
+					return new Response("Not Found", { status: 404 });
+				}
+				const hashedPassword = await Bun.password.hash(password);
+				return new Response("Success", {
 					headers: {
-						"Content-Type": file.type,
+						"Set-Cookie": `__connect__=${hashedPassword};`,
 					},
 				});
 			}
@@ -89,6 +109,17 @@ export function createServer({
 					}
 					return new Response("Success");
 				}
+			}
+
+			// return dist files
+			if (url.pathname.startsWith("/dist")) {
+				const file = Bun.file(url.pathname.replace(/^\/+/, ""));
+				if (!file) return new Response("Not Found", { status: 404 });
+				return new Response(file, {
+					headers: {
+						"Content-Type": file.type,
+					},
+				});
 			}
 
 			return new Response("Not Found", { status: 404 });

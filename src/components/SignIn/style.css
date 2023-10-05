@@ -1,0 +1,36 @@
+.signin-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    margin-top: 32px;
+}
+
+.signin-container button[type="submit"] {
+    border-radius: 8px;
+    border: none;
+    background-color: var(--color-blue-500);
+    color: white;
+    transition-duration: 100ms;
+    display: grid;
+    place-content: center;
+    min-height: 40px;
+    max-height: 40px;
+    padding-left:16px;
+    padding-right:16px;
+    width: 100%;
+}
+
+.signin-container button[type="submit"]:hover {
+    background-color: var(--color-blue-600);
+}
+
+@media (min-width: 768px) {
+    .signin-container {
+        flex-direction: row;
+    }
+
+    .signin-container button[type="submit"] {
+        width: auto;
+    }
+}
