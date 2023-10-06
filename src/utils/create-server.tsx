@@ -1,7 +1,13 @@
+import fs from "node:fs";
 import { renderToReadableStream } from "react-dom/server";
 import { App } from "../App";
 import { FieldsetType } from "../consts";
 import { Database } from "bun:sqlite";
+
+if (!fs.existsSync("./data")) {
+	fs.mkdirSync("./data");
+}
+
 const db = new Database("./data/mydb.sqlite", { create: true });
 const query = db.query(
 	"CREATE TABLE IF NOT EXISTS fieldsets (id INTEGER PRIMARY KEY, category TEXT, service TEXT, price DECIMAL, type TEXT);",
