@@ -173,3 +173,4 @@ dist
 
 #SQLITE
 *.sqlite
+data
