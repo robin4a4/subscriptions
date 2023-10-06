@@ -8,7 +8,6 @@ COPY tsconfig.json .
 COPY biome.json .
 COPY config config
 COPY src src
-COPY data data
 
 RUN bun install
 
