@@ -1,4 +1,4 @@
-import { createServer } from "./server/create-server";
+import { createServer } from "./utils/create-server";
 
 const manifestString = await Bun.file("dist/manifest.json").text();
 const manifest = JSON.parse(manifestString);

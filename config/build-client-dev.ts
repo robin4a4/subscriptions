@@ -1,4 +1,4 @@
-import { createServer } from "../src/server/create-server";
+import { createServer } from "../src/utils/create-server";
 
 console.log("Building...");
 const result = await Bun.build({

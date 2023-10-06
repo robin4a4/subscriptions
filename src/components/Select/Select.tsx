@@ -37,7 +37,9 @@ export function Select<TOptions extends readonly Record<string, string>[]>({
 					<SelectRadix.Icon className="SelectIcon">{icon}</SelectRadix.Icon>
 				) : null}
 
-				<SelectRadix.Value placeholder={placeholder} />
+				<SelectRadix.Value placeholder={placeholder}>
+					{options.find((option) => option.slug === value)?.name}
+				</SelectRadix.Value>
 				<SelectRadix.Icon className="SelectIcon">
 					<ChevronDownIcon />
 				</SelectRadix.Icon>

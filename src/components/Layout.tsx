@@ -23,7 +23,7 @@ export function Layout({
 					}
 				})}
 			</head>
-			<body>
+			<body className="css-transitions-only-after-page-load">
 				{" "}
 				<div className="container">
 					<h1>🤑 Subscriptions</h1>

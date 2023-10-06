@@ -155,7 +155,7 @@ export function FormContainer() {
 			...fieldsets,
 			{
 				id: undefined,
-				category: undefined,
+				category: SUBSCRIPTIONS_CATEGORIES.streaming.slug,
 				service: undefined,
 				price: 0,
 				type: "monthly",
