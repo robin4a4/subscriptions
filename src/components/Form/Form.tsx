@@ -98,8 +98,10 @@ function FormFieldset({
 			/>
 			<Input
 				placeholder="Price"
+				type="number"
+				step="0.01"
 				name="price"
-				defaultValue={item?.price}
+				defaultValue={item?.price.toString()}
 				onChange={(event) => {
 					handleFieldsetsChange({
 						price:

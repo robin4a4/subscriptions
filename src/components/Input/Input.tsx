@@ -8,7 +8,7 @@ export function Input(
 ) {
 	return (
 		<div className="Input">
-			<input {...props} type="text" />
+			<input {...props} />
 			{props.unit && <span className="InputUnit">{props.unit}</span>}
 		</div>
 	);
