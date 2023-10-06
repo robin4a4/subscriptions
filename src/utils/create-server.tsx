@@ -18,7 +18,6 @@ export function createServer({ manifest }: { manifest: string[] }) {
 		port: process.env.PORT || 8080,
 		async fetch(req) {
 			const url = new URL(req.url);
-			// return index.html for root path
 			if (url.pathname === "/") {
 				if (!process.env.PASSWORD)
 					return new Response("Not Found", { status: 404 });
